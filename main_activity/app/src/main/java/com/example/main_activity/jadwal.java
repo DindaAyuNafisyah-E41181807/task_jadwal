@@ -75,7 +75,7 @@ public class jadwal extends Fragment {
         }
     }
 
-    private final String URL_Jadwal = "http://192.168.1.4/json_jadwal/jadwal.php";
+    private final String URL_Jadwal = "http://192.168.1.4/task_jadwal/json_jadwal/jadwal.php";
     private RecyclerView myrecyclerview ;
     private List<JadwalItem> lstjadwal;
     private RecyclerViewAdapter_jadwal adapter;
@@ -91,10 +91,6 @@ public class jadwal extends Fragment {
         lstjadwal = new ArrayList<>();
 
         addJadwal();
-
-        myrecyclerview.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
-        adapter = new RecyclerViewAdapter_jadwal(getActivity().getApplicationContext(), lstjadwal);
-        myrecyclerview.setAdapter(adapter);
 
         return view ;
 
@@ -115,16 +111,19 @@ public class jadwal extends Fragment {
                                 jadwal.setMapel(jsonObject.getString("mata_pelajaran"));
                                 jadwal.setStatus(jsonObject.getString("status"));
                                 jadwal.setNamaguru(jsonObject.getString("nama_guru"));
-                                jadwal.setWaktumengerjakan(jsonObject.getString("waktu_mengerjakan"));
+                                jadwal.setWaktumengerjakan(jsonObject.getString("waktu_mulai"));
                                 jadwal.setStatussoal(jsonObject.getString("tipe_ujian"));
                                 jadwal.setJumlahsoal(jsonObject.getString("jumlah_soal"));
-                                jadwal.setWaktumulai(jsonObject.getString("waktu_mulai"));
+                                jadwal.setWaktumulai(jsonObject.getString("waktu_mengerjakan"));
+                                lstjadwal.add(jadwal);
                             } catch (JSONException e) {
                                 e.printStackTrace();
                                 Toast.makeText(getActivity().getApplicationContext(), "Error" + e.toString(), Toast.LENGTH_SHORT).show();
                             }
                         }
-
+                        myrecyclerview.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
+                        adapter = new RecyclerViewAdapter_jadwal(getActivity().getApplicationContext(), lstjadwal);
+                        myrecyclerview.setAdapter(adapter);
                     }
                 },
                 new Response.ErrorListener() {

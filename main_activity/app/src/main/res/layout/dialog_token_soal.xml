@@ -52,7 +52,6 @@
             android:text="MULAI"
             android:textStyle="bold"/>
 
-
     </LinearLayout>
 
     <ImageView
